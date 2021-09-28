@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
+<head><!-- Basic need --><title>회원정보 수정</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <link rel="profile" href="#"><!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600'/>
+    <!-- Mobile specific meta -->
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone-no"><!-- CSS files -->
+    <link rel="stylesheet" href="../css/plugins.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /*.submit {*/
+        /*    float:left;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<div class="buster-light">
+    <div class="page-single">
+        <div class="container">
+            <div class="row ipad-width">
+                <div class="col-md-9 col-sm-12 col-xs-12">
+                    <div class="form-style-1 user-pro" action="">
+                        <form th:action="@{'/updateUser/' + ${currentUser.userId}}" method="post" class="user"><h3>회원 정보
+                            수정</h3>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 form-it"><label>아이디*</label>
+                                    <input type="text" th:field="*{currentUser.userId}"
+                                           placeholder="아이디" readonly>
+                                </div>
+                                <div class="col-md-6 form-it"><label>현재 비밀번호*</label>
+                                    <input type="password" required
+                                           placeholder="********">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-it"><label>새 비밀번호</label>
+                                    <input type="password" th:field="*{currentUser.userPw}"
+                                           placeholder="********">
+                                </div>
+                                <div class="col-md-6 form-it"><label>새 비밀번호 확인</label>
+                                    <input type="password"
+                                           placeholder="********">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-it"><label>이름*</label>
+                                    <input type="text" th:field="*{currentUser.userName}" readonly
+                                           placeholder="이름">
+                                </div>
+                                <div class="col-md-6 form-it"><label>이메일*</label>
+                                    <input type="email" th:field="*{currentUser.userMail}"
+                                           placeholder="mvwk@mvwk.com" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-it"><label>휴대폰*</label>
+                                    <input type="text" th:field="*{currentUser.userCellNum}"
+                                           placeholder="'-'를 뺀 숫자 11자리 (01012345678)" required>
+                                </div>
+                                <div class="col-md-6 form-it"><label>성별*</label>
+                                    <input type="radio" th:field="*{currentUser.userGender}" th:value="1" >남자
+                                    <input type="radio" th:field="*{currentUser.userGender}" th:value="2" >여자
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-it"><label>생년월일*</label>
+                                    <input type="text" th:field="*{currentUser.userBirth}"
+                                           placeholder="'-'를 뺀 숫자 6자리 (210923)">
+                                </div>
+                                <div class="col-md-6 form-it"><label>MBTI</label>
+                                    <input type="text" th:field="*{currentUser.userMbti}"
+                                           placeholder="영어 대문자 4자리 ex)ISFJ">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <input class="submit submit_btn" type="submit" value="회원정보 수정">
+                            </div>
+                        </form>
+                        <form th:action="@{'/deleteUser/' + ${currentUser.userId}}" method="post">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <div class="row">
+                                <div class="col-md-3"><input class="submit" type="submit" value="회원 탈퇴"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

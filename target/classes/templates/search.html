@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>검색</title>
+</head>
+<body>
+<form action="/search" method="GET">
+    <input type="text" name="keyword" placeholder="검색어를 입력해주세요"><br>
+    <button>검색</button>
+</form>
+<div>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>영화 검색</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="searchList : ${searchList}">
+            <td>
+                <span th:text="${searchList}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

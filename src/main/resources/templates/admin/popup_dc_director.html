@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>read DirectorForm</title>
+  </head>
+  <body>
+    <h1>감독 중복 체크</h1>
+    <hr>
+    <form action="/movie/read/director" method="post">
+      <input type="text" id="directorName" name="directorName" placeholder="감독 검색">
+      <input type="submit" value="중복 확인">
+    </form>
+    <br>
+    <br>
+    <div>
+      <table>
+        <thead>
+        <tr>
+          <th>감독 이미지</th>
+          <th>감독 코드</th>
+          <th>감독 이름</th>
+<!--          <th>감독 대표작1</th>-->
+<!--          <th>감독 대표작2</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="director : ${directors}">  <!--리스트 안 모든 객체를 loop를 돌면서 아래 로직 실행-->
+          <td>
+            <img th:src="'/img/'+ ${director.directorProfile}+ '/'">
+          </td>
+          <td th:text="${director.directorId}"></td>
+          <td th:text="${director.directorName}"></td>
+<!--          <td th:text="${director.movieName}"></td>-->
+<!--          <td th:text="${director.movieName}"></td>-->
+          <td><input type="button" value="선택" th:onclick="|director_checked('${director.directorId}');|"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <br>
+      <br>
+      <div style="display: inline;">중복확인 클릭 후 아래에 감독 검색 결과가 없으시다면?</div>&nbsp;&nbsp;
+      <a th:href="@{/movie/create/director}" style="color: red;">감독 추가</a>
+    </div>
+  </body>
+  <script type="text/javascript">
+    $('input[type="submit"]').on('click', function(e){
+        e.preventDefault();
+    });
+
+    function director_checked(id){
+      // opener를 통해 부모 window 객체 접근
+      opener.document.getElementById("directorId").value = id;
+      // 팝업창 닫기
+      window.close();
+    }
+  </script>
+</html>

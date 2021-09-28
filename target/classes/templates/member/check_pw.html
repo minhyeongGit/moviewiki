@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head><!-- Basic need --><title>비밀번호 확인 페이지</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <link rel="profile" href="#"><!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600'/>
+    <!-- Mobile specific meta -->
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone-no"><!-- CSS files -->
+    <link rel="stylesheet" href="../css/plugins.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="buster-light">
+    <div class="page-single">
+        <div class="container">
+            <div class="row ipad-width">
+                <div class="col-md-11 col-sm-12 col-xs-12">
+                    <div class="form-style-1 user-pro" action="">
+                        <form class="password" th:action="@{/member/check_pw}" method="post">
+                            <input type="hidden" name="userId" th:value="${currentUserId}">
+                            <h3 th:text="${currentUserId} + '님의 회원정보를 안전하게 보호하기 위해 비밀번호를 한번 더 확인해 주세요'"></h3>
+                            <br>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6 form-it"><label>비밀번호 확인</label>
+                                    <input type="password" name="userPw" placeholder="*************** ">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><input class="submit" type="submit" value="확인"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- footer section-->
+<script src="js/jquery.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/plugins2.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>

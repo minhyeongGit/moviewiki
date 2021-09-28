@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>이름</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="genre2 : ${genres2}">  <!--리스트 안 모든 객체를 loop를 돌면서 아래 로직 실행-->
+            <td th:text="${genre2.genreId}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a href="/movie/create/actor">배우 등록</a>
+</body>
+</html>

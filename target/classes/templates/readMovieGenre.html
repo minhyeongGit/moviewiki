@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>영화-장르</title>
+</head>
+<body>
+<h1>영화-장르</h1>
+<hr>
+<div>
+    <table border="1">
+        <tbody>
+        <th>장르</th>
+        <th>영화</th>
+        <tr th:each="movie : ${movies2}">
+            <td th:text="${movie.getGenre()}">장르</td>
+            <td th:text="${movie.getMovie()}">영화</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

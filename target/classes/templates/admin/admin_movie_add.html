@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>관리자 영화 등록</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
+    <link href="../css/admin_styles.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+            crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+        var directorNo=0;
+        $(document).ready(function () {
+            $('.btnAdd1').click(function () {
+                $('#directors').append(
+                    '<input type="text" id="directorId'+(++directorNo)+'" name="directorId" required>\
+                    <input type="button" value="중복" onclick="popup_dc_director();"> \
+                    <input type="button" class="btnRemove1" value="삭제"><br>'
+                )
+                $('.btnRemove1').on('click', function () {
+                    $(this).prev().remove();
+                    $(this).prev().remove();
+                    $(this).next().remove();    // <br> 삭제
+                    $(this).remove();           // 버튼 삭제
+                });
+            });
+        });
+
+        var actorNo=0;
+        $(document).ready(function () {
+            $('.btnAdd2').click(function () {
+                $('#actors').append(
+                    '<input type="text" id="actorId'+(++actorNo)+'" name="actorId" required>\
+                    <input type="button" value="중복" onclick="popup_dc_actor();"> \
+                    <input type="button" class="btnRemove2" value="삭제"><br>'
+                )
+                $('.btnRemove2').on('click', function () {
+                    $(this).prev().remove();
+                    $(this).prev().remove();
+                    $(this).next().remove();    // <br> 삭제
+                    $(this).remove();           // 버튼 삭제
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('.btnAdd3').click(function () {
+                $('#nations').append(
+                    '<select name="nationId" required>\
+                        <option value="">선택</option>\
+                        <option value="KR">한국</option>\
+                        <option value="JP">일본</option>\
+                        <option value="US">미국</option>\
+                        <option value="HK">홍콩</option>\
+                        <option value="UK">영국</option>\
+                        <option value="FR">프랑스</option>\
+                        <option value="ET">기타</option>\
+                    </select> <input type="button" class="btnRemove3" value="삭제"><br>'
+                )
+                $('.btnRemove3').on('click', function () {
+                    $(this).prev().remove();
+                    $(this).next().remove();    // <br> 삭제
+                    $(this).remove();           // 버튼 삭제
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('.btnAdd4').click(function () {
+                $('#genres').append(
+                    '<select name="genreId" required>\
+                        <option value="">선택</option>\
+                        <option value="DR">드라마</option>\
+                        <option value="FN">판타지</option>\
+                        <option value="WE">서부</option>\
+                        <option value="HR">공포</option>\
+                        <option value="RM">로맨스</option>\
+                        <option value="AD">모험</option>\
+                        <option value="TH">스릴러</option>\
+                        <option value="NO">느와르</option>\
+                        <option value="CT">컬트</option>\
+                        <option value="DC">다큐멘터리</option>\
+                        <option value="CO">코미디</option>\
+                        <option value="FM">가족</option>\
+                        <option value="MY">미스터리</option>\
+                        <option value="WR">전쟁</option>\
+                        <option value="AM">애니메이션</option>\
+                        <option value="CM">범죄</option>\
+                        <option value="MU">뮤지컬</option>\
+                        <option value="SF">SF</option>\
+                        <option value="AC">액션</option>\
+                        <option value="MA">무협</option>\
+                        <option value="ER">에로</option>\
+                        <option value="SS">서스펜스</option>\
+                        <option value="NR">서사</option>\
+                        <option value="BC">블랙코미디</option>\
+                        <option value="EX">실험</option>\
+                        <option value="MC">영화카툰</option>\
+                        <option value="MM">영화음악</option>\
+                        <option value="MP">영화패러디포스터</option>\
+                    </select> <input type="button" class="btnRemove4" value="삭제"><br>'
+                )
+                $('.btnRemove4').on('click', function () {
+                    $(this).prev().remove();
+                    $(this).next().remove();    // <br> 삭제
+                    $(this).remove();           // 버튼 삭제
+                });
+            });
+        });
+
+        function popup_dc_director(){
+            window.open("/movie/read/director", "감독 중복 확인", "width=600, height=300, left=100, top=50");
+        }
+        function popup_dc_actor(){
+            window.open("/movie/read/actor", "배우 중복 확인", "width=600, height=300, left=100, top=50");
+        }
+    </script>
+</head>
+<body class="sb-nav-fixed">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" th:href="@{/admin/admin_index}">Moviewiki 관리자</a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+            class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                   aria-describedby="btnNavbarSearch"/>
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" th:href="@{/}">로그아웃</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Menu</div>
+                    <a class="nav-link" th:href="@{/}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        무비위키 메인
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/admin_news}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        뉴스 게시판 관리
+                    </a>
+                    <a class="nav-link" th:href="@{/movie/create}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        영화 등록
+                    </a>
+                </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Logged in as:</div>
+                <span sec:authentication="name"/>
+            </div>
+        </nav>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <h1 style="padding-left: 30px; padding-top: 20px;" class="mt-4">영화 등록</h1>
+            <div style="margin: 0" class="container-fluid px-4">
+                <div class="buster-light">
+                    <div class="page-single">
+                        <div class="container">
+                            <div class="col-md-9 col-sm-12 col-xs-12">
+                                <div class="form-style-1 user-pro" action="">
+                                    <form action="/movie/create" class="user" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6 form-it"><label>영화 이름</label><input type="text"
+                                                                                                     name="movieName"
+                                                                                                     required>
+                                            </div>
+                                            <div class="col-md-6 form-it"><label>영화 원제</label><input type="text"
+                                                                                                     name="movieOgName"
+                                                                                                     required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div id="directors" class="col-md-6 form-it"><label>감독 이름</label>
+                                                <input type="text" id ="directorId" name="directorId" required>
+                                                <input type="button" value="중복" onclick="popup_dc_director();">
+                                                <input type="button" class="btnAdd1" value="추가"><br>
+                                            </div>
+                                            <div id="actors" class="col-md-6 form-it"><label>배우 이름</label>
+
+                                                <input type="text" id="actorId" name="actorId" required>
+                                                <input type="button" value="중복" onclick="popup_dc_actor();">
+                                                <input type="button" class="btnAdd2" value="추가"><br>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div id="nations" class="col-md-6 form-it"><label>국가</label>
+                                                <select name="nationId" required>
+                                                    <option value="">선택</option>
+                                                    <option value="KR">한국</option>
+                                                    <option value="JP">일본</option>
+                                                    <option value="US">미국</option>
+                                                    <option value="HK">홍콩</option>
+                                                    <option value="UK">영국</option>
+                                                    <option value="FR">프랑스</option>
+                                                    <option value="ET">기타</option>
+                                                </select>
+                                                <input type="button" class="btnAdd3" value="추가"><br>
+                                            </div>
+                                            <div id="genres" class="col-md-6 form-it"><label>장르</label>
+
+                                                <select name="genreId" required>
+                                                    <option value="">선택</option>
+                                                    <option value="DR">드라마</option>
+                                                    <option value="FN">판타지</option>
+                                                    <option value="WE">서부</option>
+                                                    <option value="HR">공포</option>
+                                                    <option value="RM">로맨스</option>
+                                                    <option value="AD">모험</option>
+                                                    <option value="TH">스릴러</option>
+                                                    <option value="NO">느와르</option>
+                                                    <option value="CT">컬트</option>
+                                                    <option value="DC">다큐멘터리</option>
+                                                    <option value="CO">코미디</option>
+                                                    <option value="FM">가족</option>
+                                                    <option value="MY">미스터리</option>
+                                                    <option value="WR">전쟁</option>
+                                                    <option value="AM">애니메이션</option>
+                                                    <option value="CM">범죄</option>
+                                                    <option value="MU">뮤지컬</option>
+                                                    <option value="SF">SF</option>
+                                                    <option value="AC">액션</option>
+                                                    <option value="MA">무협</option>
+                                                    <option value="ER">에로</option>
+                                                    <option value="SS">서스펜스</option>
+                                                    <option value="NR">서사</option>
+                                                    <option value="BC">블랙코미디</option>
+                                                    <option value="EX">실험</option>
+                                                    <option value="MC">영화카툰</option>
+                                                    <option value="MM">영화음악</option>
+                                                    <option value="MP">영화패러디포스터</option>
+                                                </select>
+                                                <input type="button" class="btnAdd4" value="추가"><br>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-it"><label>등급</label>
+                                                <select name="filmRating" required>
+                                                    <option value="">선택</option>
+                                                    <option value="전체 관람가">전체 관람가</option>
+                                                    <option value="12세 관람가">12세 관람가</option>
+                                                    <option value="15세 관람가">15세 관람가</option>
+                                                    <option value="청소년 관람불가">청소년 관람불가</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 form-it"><label>상영 시간(분)</label>
+                                                <input type="text" name="runningTime" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-it"><label>개봉일</label>
+                                                <input type="date" name="releaseDate" required>
+                                            </div>
+                                            <div class="col-md-6 form-it"><label>영화 포스터</label>
+                                                <br><input type="file" name="movieProfile" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-it"><label>줄거리</label>
+                                                <textarea id="summary" name="summary" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2"><input class="submit" type="submit" value="save">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="../js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="../js/datatables-simple-demo.js"></script>
+</body>
+</html>

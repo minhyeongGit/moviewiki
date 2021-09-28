@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <style>
+        .wrapper {
+            width:600px;
+        }
+        .mypage-top {
+            border: black 1px solid;
+            width: 600px;
+            height: 159px;
+        }
+        .mypage-top > div {
+            float: left;
+        }
+        .grade {
+            margin-left: 73px;
+            text-align: center;
+        }
+        .setting {
+            float: right;
+        }
+        .reviews-follow {
+            float: left;
+            margin: 39px 0px 0;
+            text-align: center;
+            width: 100px;
+            height: 66px;
+        }
+        .reviews-follow:first-child {
+            margin-left: 59px;
+        }
+        .btn_follow {
+            margin: 10px 178px;
+        }
+        .mypage-bottom {
+            width: 600px;
+            height: 406px;
+            border: black 1px solid;
+        }
+        img {
+            float: left;
+        }
+        .analysis {
+            width: 100%;
+            margin: 23px;
+        }
+        .watched-wanna {
+            border: black 1px solid;
+            height: 300px;
+            width: 250px;
+            text-align: center;
+            line-height: 2;
+            float: left;
+            margin: 0 24px;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- HEADER -->
+    <div th:insert="main_header" id="header"></div>
+
+    <h1>영화 상세 페이지</h1>
+    <div class="wrapper">
+        <div class="btn_follow" th:switch="${movie.movieId}">
+            <span th:case="${currentUserId}"></span>
+            <span th:case="*">
+                <span th:switch="${isWant}">
+                    <span th:case="true">
+                        <form action="/deleteWant" name="form" method="post"> <!-- 관심영화 해제 -->
+                            <input type="hidden" th:value="${currentUserId}" name="userId"/>
+                            <input type="hidden" th:value="${movie.movieId}" name="movieId"/>
+                            <button type="submit">관심영화 해제</button>
+                        </form>
+                    </span>
+                    <span th:case="false">
+                        <form action="/addWant" name="form" method="post"> <!-- 관심영화 추가 -->
+                            <input type="hidden" th:value="${currentUserId}" name="userId"/>
+                            <input type="hidden" th:value="${movie.movieId}" name="movieId"/>
+                            <button type="submit">관심영화 추가</button>
+                        </form>
+                    </span>
+                </span>
+            </span>
+        </div>
+    </div>
+</body>
+</html>
